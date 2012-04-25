@@ -16,6 +16,7 @@
 		923374BE1530824C003CBD9C /* KorgWirelessSyncStart.m in Sources */ = {isa = PBXBuildFile; fileRef = 923374B91530824C003CBD9C /* KorgWirelessSyncStart.m */; };
 		923374BF1530824C003CBD9C /* ofxWIST.mm in Sources */ = {isa = PBXBuildFile; fileRef = 923374BC1530824C003CBD9C /* ofxWIST.mm */; };
 		923374C115308295003CBD9C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 923374C015308295003CBD9C /* GameKit.framework */; };
+		92A7A86B1547962900E3D02A /* README in Resources */ = {isa = PBXBuildFile; fileRef = 92A7A86A1547962900E3D02A /* README */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BB24DD8F10DA77E000E9C588 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24DD8C10DA77E000E9C588 /* Default.png */; };
@@ -66,6 +67,8 @@
 		923374BB1530824C003CBD9C /* ofxWIST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxWIST.h; sourceTree = "<group>"; };
 		923374BC1530824C003CBD9C /* ofxWIST.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxWIST.mm; sourceTree = "<group>"; };
 		923374C015308295003CBD9C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		925F94001547776C00B4B110 /* ofxSimpleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSimpleButton.h; sourceTree = "<group>"; };
+		92A7A86A1547962900E3D02A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DD8C10DA77E000E9C588 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 		923374B41530824C003CBD9C /* ofxWIST */ = {
 			isa = PBXGroup;
 			children = (
+				92A7A86A1547962900E3D02A /* README */,
 				923374B51530824C003CBD9C /* libs */,
 				923374BA1530824C003CBD9C /* src */,
 			);
@@ -183,6 +187,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		925F93FE1547771800B4B110 /* ofxSimpleButton */ = {
+			isa = PBXGroup;
+			children = (
+				925F94001547776C00B4B110 /* ofxSimpleButton.h */,
+			);
+			name = ofxSimpleButton;
+			path = ../../../addons/ofxSimpleButton;
+			sourceTree = "<group>";
+		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +207,7 @@
 		BB16F26B0F2B646B00518274 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				925F93FE1547771800B4B110 /* ofxSimpleButton */,
 				923374B41530824C003CBD9C /* ofxWIST */,
 			);
 			name = addons;
@@ -319,6 +333,7 @@
 				BB24DDCA10DA781C00E9C588 /* ofxiphone-Info.plist in Resources */,
 				E41D3ED713B38FB500A75A5D /* Project.xcconfig in Resources */,
 				E41D3EE613B3906D00A75A5D /* CoreOF.xcconfig in Resources */,
+				92A7A86B1547962900E3D02A /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

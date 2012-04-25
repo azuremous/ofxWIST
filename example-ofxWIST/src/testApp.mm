@@ -14,18 +14,23 @@ void testApp::setup(){
 	//If you want a landscape oreintation 
 	//iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_RIGHT);
     
-    ofBackground(0);
     start = false;
     tempoCount = 50;
     setTempo(tempoCount);
-    wistOnButton.setup(30, 100, 50, 50, "wiston");
-    startButton.setup(30, 200, 50, 50, "start");//send tempo and make slave start
+    
+    ofBackground(0);
+    wistOnButton.setup(30, 100, 50, 50);
+    wistOnButton.setName("wistON",0,-5);
+    wistOnButton.setAppear(true);
+    
+    startButton.setup(30, 200, 50, 50,TOGGLE);
+    startButton.setName("start",0,-5);
+    startButton.setAppear(true);
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    
     
 }
 
@@ -34,47 +39,33 @@ void testApp::draw(){
     
     ofSetColor(255);
     if (wist.isConected()) {
-        if (wist.isMaster()) {
-            ofDrawBitmapString("master", 10, 20);
-        }else {
-            ofDrawBitmapString("slave", 10, 20);
-        }
-    }else {
-        ofDrawBitmapString("wist", 10,20);
-    }
+        if (wist.isMaster()) ofDrawBitmapString("master", 10, 20);
+        else ofDrawBitmapString("slave", 10, 20);
+        
+    }else ofDrawBitmapString("wist", 10,20);
     
     ofPushMatrix();
     ofTranslate(10, 50);
     ofDrawBitmapString("tempo:", 0,0);
     ofDrawBitmapString(tempoText, 50, 0);
     ofPopMatrix();
-    
-    wistOnButton.render();
-    startButton.render();
 	
 }
 
 //--------------------------------------------------------------
 void testApp::exit(){
     
+    
+    
 }
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs &touch){
     
-    
-    if (wistOnButton.checkClick(touch)) {
-        
-        if (!wist.isConected()) {
-            wist.on();
-        }else {
-            wist.off();
-        }
-        
+    if (wistOnButton.pressed(touch.x, touch.y)) {
+        if (!wist.isConected()) wist.on();
+        else wist.off();
     }
-    
-    
-    startButton.checkClick(touch);
     
 }
 
@@ -88,24 +79,16 @@ void testApp::touchMoved(ofTouchEventArgs &touch){
 //--------------------------------------------------------------
 void testApp::touchUp(ofTouchEventArgs &touch){
     
-    
-    if (wistOnButton.clicked && !wist.isConected()) wistOnButton.clicked = false;
-    
-    if (startButton.clicked && !start ) {
-        if (wist.isConected() && wist.isMaster()) {
-            wist.start(tempoCount);
+    if (wist.isConected()) {
+        
+        if (wist.isMaster()) {
+            
+            if (startButton.selected) wist.start(tempoCount);
+            else wist.stop();
+            
         }
-        start = true;
-        
-    }else {
-        
-        if (wist.isConected() && wist.isMaster()) {
-            wist.stop();
-        }
-        
-        start = false;
-        startButton.clicked = false;
     }
+    
 }
 
 //--------------------------------------------------------------
@@ -138,22 +121,22 @@ void testApp::deviceOrientationChanged(int newOrientation){
 void testApp::touchCancelled(ofTouchEventArgs& args){
     
 }
-//--------------------------------------------------------------
+
 void testApp::gotMessage(ofMessage msg){
     
     if (!wist.isMaster()) {//when this one is slave
-        if (msg.message == "receiveTempo") {
+        if (msg.message == "start" && !start) {
             
             tempoCount = wist.getTempo();
             setTempo(tempoCount);
             
             start = true;
-            startButton.clicked = true;
-          
-        }else if (msg.message == "stop"){
+            startButton.selected = true;
+            
+        }else if (msg.message == "stop" && start){
             
             start = false;
-            startButton.clicked = false;
+            startButton.selected = false;
             
         }
     }
@@ -168,3 +151,4 @@ void testApp::setTempo(float _tempo){
     tempoText = count;
     delete [] count;
 }
+

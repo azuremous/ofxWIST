@@ -56,7 +56,7 @@
 {
     if (!wist_.isConnected)
     {
-     
+        
         [wist_ searchPeer];
     }
 }
@@ -94,7 +94,7 @@
     {
         //sync stop
         const uint64_t  hostTime = [self now];
-     
+        
         //remote
         [wist_ sendStopCommand:hostTime]; 
     }
@@ -129,13 +129,12 @@
 {
     //  (In SLAVE mode) received start command from MASTER
     self.tempo = tempo;
-    ofSendMessage("receiveTempo");
-   
+    ofSendMessage("start");
+    
 }
 
 - (void)wistStopCommandReceived:(uint64_t)hostTime
 {
- 
     ofSendMessage("stop");
 }
 
@@ -170,7 +169,6 @@
 ofxWIST::ofxWIST(){
     
     myWist = [[ofxWISTDelegate alloc]init];
-
 }
 
 ofxWIST::~ofxWIST(){

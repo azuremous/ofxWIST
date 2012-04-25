@@ -1,0 +1,7 @@
+//
+//ofxWIST addon for opneframeworks. 
+//
+//This is base on KORG WIST SDK(http://code.google.com/p/korg-wist-sdk/).
+//
+//You need to add GameKit.framework in your project.
+//

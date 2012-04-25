@@ -50,14 +50,16 @@ public:
     
     ofxWIST();
     ~ofxWIST();
+    
     void on();
     void off();
     void start(float _tempo);
     void stop();
+    
     float getTempo();
+    
     bool isMaster();
     bool isConected();
- 
     
 };
 
