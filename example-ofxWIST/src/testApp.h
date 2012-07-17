@@ -6,6 +6,7 @@
 
 #include "ofxWIST.h"
 #include "ofxSimpleButton.h"
+#include "ofxSimpleMetronome.h"
 
 class testApp : public ofxiPhoneApp {
 	
@@ -20,7 +21,7 @@ public:
 	void touchUp(ofTouchEventArgs &touch);
 	void touchDoubleTap(ofTouchEventArgs &touch);
 	void touchCancelled(ofTouchEventArgs &touch);
-    
+
 	void lostFocus();
 	void gotFocus();
 	void gotMemoryWarning();
@@ -38,6 +39,11 @@ public:
     ofxSimpleButton wistOnButton;
     ofxSimpleButton startButton;
     
+    metronome metron;
+    
+    float c_r;
+    ofColor c_c;
+
 };
 
 

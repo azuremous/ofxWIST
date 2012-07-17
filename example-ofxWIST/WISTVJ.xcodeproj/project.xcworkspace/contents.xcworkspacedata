@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ofxWISTexample.xcodeproj">
+      location = "self:WISTVJ.xcodeproj">
    </FileRef>
 </Workspace>

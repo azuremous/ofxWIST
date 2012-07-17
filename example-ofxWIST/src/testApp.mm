@@ -1,6 +1,5 @@
 #include "testApp.h"
 
-//--------------------------------------------------------------
 void testApp::setup(){	
 	// register touch events
 	ofRegisterTouchEvents(this);
@@ -14,28 +13,53 @@ void testApp::setup(){
 	//If you want a landscape oreintation 
 	//iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_RIGHT);
     
+    ofSetFrameRate(60);
+    ofSetVerticalSync(true);
+    ofSetCircleResolution(50);
+    
     start = false;
-    tempoCount = 50;
+    tempoCount = 60;
     setTempo(tempoCount);
     
     ofBackground(0);
-    wistOnButton.setup(30, 100, 50, 50);
+    wistOnButton.setup(30, 100, 50, 50, false);
     wistOnButton.setName("wistON",0,-5);
     wistOnButton.setAppear(true);
     
-    startButton.setup(30, 200, 50, 50,TOGGLE);
+    startButton.setup(30, 200, 50, 50, false, TOGGLE);
     startButton.setName("start",0,-5);
     startButton.setAppear(true);
+    
+    metron.setup(tempoCount, 10,35);
+    c_r = 10;
+    c_c.set(255, 255, 255);
+    
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
     
+    if (metron.checkBang()&& metron.start) {
+        if (metron.getBang()) {
+            c_r = ofRandom(50,200);
+        }else{
+            
+            c_r = 10;
+        }
+        c_c.set(ofRandom(255), ofRandom(255), ofRandom(255));
+    }
+    
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    ofSetColor(c_c);
+    ofCircle(0, 0, c_r);
+    ofPopMatrix();
     
     ofSetColor(255);
     if (wist.isConected()) {
@@ -62,31 +86,48 @@ void testApp::exit(){
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs &touch){
     
-    if (wistOnButton.pressed(touch.x, touch.y)) {
+    wistOnButton.press(touch);
+    startButton.press(touch);
+    
+    if (wistOnButton.selected) {
         if (!wist.isConected()) wist.on();
         else wist.off();
+        return;
     }
+    
+    setTempo(ofMap(touch.y, 0, ofGetHeight(), 40.0, 300.0));
     
 }
 
 //--------------------------------------------------------------
 void testApp::touchMoved(ofTouchEventArgs &touch){
     
-    setTempo(touch.y);
-    
+    setTempo(ofMap(touch.y, 0, ofGetHeight(), 40.0, 300.0));
 }
 
 //--------------------------------------------------------------
 void testApp::touchUp(ofTouchEventArgs &touch){
     
-    if (wist.isConected()) {
-        
-        if (wist.isMaster()) {
-            
-            if (startButton.selected) wist.start(tempoCount);
-            else wist.stop();
-            
+    if (startButton.selected) {
+        if (wist.isConected()) {
+            if (wist.isMaster()) {
+                wist.start(tempoCount);
+                
+            }
         }
+        metron.start = true;
+        metron.setTempo(tempoCount);
+        return;
+        
+    }else {
+        if (wist.isConected()) {
+            if (wist.isMaster()) { 
+                wist.stop();
+            }
+        }
+        metron.start = false;
+        metron.setTempo(tempoCount);
+        return;
     }
     
 }
@@ -125,7 +166,7 @@ void testApp::touchCancelled(ofTouchEventArgs& args){
 void testApp::gotMessage(ofMessage msg){
     
     if (!wist.isMaster()) {//when this one is slave
-        if (msg.message == "start" && !start) {
+        if (msg.message == "start") {
             
             tempoCount = wist.getTempo();
             setTempo(tempoCount);
@@ -133,7 +174,7 @@ void testApp::gotMessage(ofMessage msg){
             start = true;
             startButton.selected = true;
             
-        }else if (msg.message == "stop" && start){
+        }else if (msg.message == "stop"){
             
             start = false;
             startButton.selected = false;
@@ -141,14 +182,17 @@ void testApp::gotMessage(ofMessage msg){
         }
     }
     
+    metron.start = start;
+    metron.setTempo(tempoCount);
 }
 
 void testApp::setTempo(float _tempo){
     
     char * count = new char[255];
-    sprintf(count, "%0.2f",_tempo);
+    sprintf(count, "%0.1f",_tempo);
     tempoCount = _tempo;
     tempoText = count;
     delete [] count;
+    
 }
 
