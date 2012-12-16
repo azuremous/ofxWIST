@@ -1,17 +1,16 @@
 //
 //  ofxWIST.h
-//  emptyExample
+//  ofxWIST
 //
-//  Created by 정운 김 on 4/5/12.
-//  Copyright (c) 2012 pinkroad.co.cc. All rights reserved.
+//  Created by kim jung un a.k.a azuremous on 4/5/12.
+//  Copyright (c) 2012 azuremous.net All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "KorgWirelessSyncStart.h"
 #import "ofMain.h"
 
-#ifndef emptyExample_ofxWIST_h
-#define emptyExample_ofxWIST_h
+#pragma once
 
 
 @interface ofxWISTDelegate : UIViewController <KorgWirelessSyncStartDelegate>
@@ -63,4 +62,3 @@ public:
     
 };
 
-#endif
